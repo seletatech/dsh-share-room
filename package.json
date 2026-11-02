@@ -1,29 +1,64 @@
 {
   "name": "dsh-share-room",
-  "version": "0.3.3",
+  "version": "0.3.3-seletatech.1",
   "description": "Invite others into your DeepSeek Harness (DSH) AI conversation: they join from a link, discuss with you and ask the AI together. No account needed.",
   "type": "module",
   "main": "lib/index.js",
   "license": "MIT",
   "author": "yillkid",
-  "repository": { "type": "git", "url": "git+https://github.com/yillkid/dsh-share-room.git" },
-  "homepage": "https://github.com/yillkid/dsh-share-room#readme",
-  "bugs": { "url": "https://github.com/yillkid/dsh-share-room/issues" },
-  "keywords": ["dsh", "deepseek-harness", "dsh-plugin", "share", "collaboration"],
-  "files": ["lib/", "cordis.patch.yml", "README.md", "README.zh-TW.md", "README.zh-CN.md", "CHANGELOG.md", "LICENSE"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seletatech/dsh-share-room.git"
+  },
+  "homepage": "https://github.com/seletatech/dsh-share-room",
+  "bugs": {
+    "url": "https://github.com/seletatech/dsh-share-room/issues"
+  },
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "dsh-plugin",
+    "share",
+    "collaboration"
+  ],
+  "files": [
+    "lib/",
+    "cordis.patch.yml",
+    "README.md",
+    "README.zh-TW.md",
+    "README.zh-CN.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "src/",
+    "locale/",
+    "scripts/build-i18n.mjs",
+    "FORK.md"
+  ],
   "exports": {
-    ".": { "default": "./lib/index.js" },
-    "./core": { "default": "./lib/core.js" },
-    "./client": { "default": "./lib/client.js" },
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./core": {
+      "default": "./lib/core.js"
+    },
+    "./client": {
+      "default": "./lib/client.js"
+    },
     "./package.json": "./package.json"
   },
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "test": "node --test test/*.test.js",
-    "test:dsh02": "D=$(mktemp -d) && npm install --prefix $D --no-save @deepseek-ai/dsh@0.2.1-rc.5 >/dev/null && DSH02_PREFIX=$D node --test test/dsh02-load.test.mjs"
+    "test:dsh02": "D=$(mktemp -d) && npm install --prefix $D --no-save @deepseek-ai/dsh@0.2.1-rc.5 >/dev/null && DSH02_PREFIX=$D node --test test/dsh02-load.test.mjs",
+    "build": "node scripts/build-i18n.mjs",
+    "prepack": "npm run build"
   },
   "dsh": {
-    "bundle": { "patch": "./cordis.patch.yml" },
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
     "client": {
       "platform": "web",
       "inject": [
@@ -32,9 +67,12 @@
         "@deepseek-ai/dsh-client-ui-session",
         "@deepseek-ai/dsh-client-ui-chat",
         "@deepseek-ai/dsh-client-ui-conversation",
-        "@deepseek-ai/dsh-client-ui-workspace"
+        "@deepseek-ai/dsh-client-ui-workspace",
+        "@deepseek-ai/dsh-client-locale"
       ]
     }
   },
-  "peerDependencies": { "@deepseek-ai/cordis": "~4.0.4" }
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "~4.0.4"
+  }
 }

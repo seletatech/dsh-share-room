@@ -1,3 +1,5 @@
+> Seleta maintenance fork: Simplified Chinese, English and Traditional Chinese UI. See [FORK.md](FORK.md).
+
 # dsh-share-room
 
 [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md) | English

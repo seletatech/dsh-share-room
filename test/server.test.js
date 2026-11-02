@@ -165,7 +165,7 @@ async function readSse(res, until, timeoutMs = 3000) {
 async function shareAndJoin(t, opts = {}) {
   const h = await boot()
   t.after(h.close)
-  const created = await h.owner('/api/share-room.create', { sessionId: SID, sourceSessionId: SRC, ownerName: 'C', guestName: 'D', ...opts })
+  const created = await h.owner('/api/share-room.create', { sessionId: SID, sourceSessionId: SRC, ownerName: 'C', guestName: 'D', locale: 'zh-Hant', ...opts })
   assert.equal(created.status, 200, JSON.stringify(created.body))
   const [, shareId, secret] = created.body.invitePath.match(/^\/share\/([^/]+)\/#(.+)$/)
   const joined = await h.guest(`${shareId}/join`, { body: { invite: secret } })
@@ -830,3 +830,18 @@ test('questions: switching the share to full access while the AI waits keeps the
   assert.equal(a.status, 200)
   assert.deepEqual(await result, { answers: [{ id: 'q1', selected: ['B'] }] })
 })
+
+for (const [locale, title, loading, status] of [
+  ['zh', '分享的对话', '加载中…', '分享中・1 位'],
+  ['en', 'Shared conversation', 'Loading…', 'Sharing · guests: 1'],
+  ['zh-Hant', '分享的對話', '載入中…', '分享中・1 位'],
+]) test(`locale ${locale}: guest shell and persisted shared title`, async t => {
+  const h = await shareAndJoin(t, {locale});
+  const page = await fetch(`${h.base}/share/${h.shareId}/?lang=${locale}`);
+  const html = await page.text();
+  assert.ok(html.includes(`<html lang="${locale}">`));
+  assert.ok(html.includes(`<title>${title}</title>`));
+  assert.ok(html.includes(loading));
+  await new Promise(resolve => setTimeout(resolve, 50));
+  assert.equal(h.gw.sessions.get(SID).title, `🔗 Original（${status}）`);
+});

@@ -16,7 +16,7 @@ function loadClient() {
 test('client loads and exports apply/inject', () => {
   const client = loadClient()
   assert.equal(typeof client.apply, 'function')
-  assert.deepEqual([...client.inject], ['slots', 'sessions', 'uiWorkspace'])
+  assert.deepEqual([...client.inject], ['slots', 'sessions', 'uiWorkspace', 'locale'])
 })
 
 test('client parseTagged matches core', () => {
