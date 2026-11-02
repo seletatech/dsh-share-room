@@ -170,6 +170,11 @@ window.__ModuleLoader__.load({
 		const field = { width: "100%", boxSizing: "border-box", height: 32, padding: "0 8px", borderRadius: 6, border: "1px solid var(--dsw-alias-border-l2, #ccc)", background: "var(--dsw-alias-bg-layer-1, #fff)", color: "inherit", fontSize: 14 };
 		const label = { display: "block", fontSize: 13, margin: "10px 0 4px", opacity: 0.85 };
 
+		const tool = (extra = {}) => ({ display: "inline-flex", alignItems: "center", justifyContent: "center", flex: "none", boxSizing: "border-box", width: 28, height: 28, padding: 0, border: 0, borderRadius: "var(--dsw-radius-sm, 8px)", background: "transparent", color: "var(--dsw-alias-label-secondary, #61666b)", cursor: "pointer", whiteSpace: "nowrap", ...extra });
+		function LinkIcon() {
+			return jsx("svg", { width: 16, height: 16, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.7, strokeLinecap: "round", "aria-hidden": true, style: { flex: "none" }, children: jsx("path", { d: "M10 14a4 4 0 0 0 6 .4l3-3a4 4 0 0 0-5.7-5.7l-1.7 1.7M14 10a4 4 0 0 0-6-.4l-3 3a4 4 0 0 0 5.7 5.7l1.7-1.7" }) });
+		}
+
 		function Overlay({ onClose, children, testid }) {
             useLocale();
 			React.useEffect(() => {
@@ -400,8 +405,8 @@ window.__ModuleLoader__.load({
 			if (share && !share.readOnlyDeleted && share.access !== "gone") {
 				const guests = share.guests.filter((g) => !g.removedAt).length;
 				return jsxs(Fragment, { children: [
-					jsx("button", { type: "button", style: btn(isLive(share) ? { borderColor: "#16a34a", color: "#15803d" } : {}), "data-testid": "share-room-manage-button", "data-share-room-state": share.access, onClick: () => setOpen(true),
-						children: isLive(share) ? t("🔗 分享中 · {0} 位訪客", [guests]) : t("🔗 分享已結束") }),
+					jsx("button", { type: "button", style: tool({ width: "auto", gap: 4, padding: "0 6px", fontSize: 12, ...(isLive(share) ? { color: "var(--dsw-alias-state-success-primary, #15803d)" } : {}) }), "aria-label": isLive(share) ? t("分享中 · {0} 位訪客", [guests]) : t("分享已結束"), "data-testid": "share-room-manage-button", "data-share-room-state": share.access, onClick: () => setOpen(true),
+						children: [jsx(LinkIcon, {}), jsx("span", { "data-share-room-label": "", children: isLive(share) ? t("分享中 · {0} 位訪客", [guests]) : t("分享已結束") })] }),
 					open && jsx(ManageDialog, { share, onClose: close }),
 				] });
 			}
@@ -411,7 +416,7 @@ window.__ModuleLoader__.load({
 				setOpen(true);
 			};
 			return jsxs(Fragment, { children: [
-				jsx("button", { type: "button", style: btn(), "data-testid": "share-room-share-button", title: t("把這個對話分享給別人一起討論"), onClick: begin, children: t("🔗 分享") }),
+				jsx("button", { type: "button", style: tool(), "data-tool": "", "data-testid": "share-room-share-button", title: t("邀請訪客"), "aria-label": t("邀請訪客"), onClick: begin, children: jsx(LinkIcon, {}) }),
 				open && ownerName !== undefined && jsx(CreateDialog, { ctx, sessionId, ownerName, onClose: close }),
 			] });
 		}
@@ -564,7 +569,7 @@ window.__ModuleLoader__.load({
 			return jsxs("div", { "data-testid": "share-room-site-row", style: { display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, padding: "16px 0", borderBottom: "1px solid var(--dsw-alias-border-l1, #eee)", color: "var(--dsw-alias-label-primary, inherit)" }, children: [
 				jsxs("div", { style: { minWidth: 0 }, children: [
 					jsx("div", { style: { fontSize: 14, lineHeight: "22px" }, children: t("對話分享") }),
-					jsx("div", { style: { fontSize: 12, lineHeight: "18px", opacity: 0.7 }, children: t("允許把對話分享給沒有帳號的訪客（標題列的「🔗 分享」）。關閉時所有訪客暫停，分享不會被刪除。") }),
+					jsx("div", { style: { fontSize: 12, lineHeight: "18px", opacity: 0.7 }, children: t("允許把對話分享給沒有帳號的訪客（標題列的連結圖示）。關閉時所有訪客暫停，分享不會被刪除。") }),
 					error && jsx("div", { role: "alert", style: { fontSize: 12, color: "#dc2626" }, children: error }),
 				] }),
 				jsx("input", { type: "checkbox", role: "switch", "aria-label": t("對話分享"), "data-share-room": "site-enabled", checked: enabled === true, disabled: busy || enabled === undefined, onChange: toggle, style: { width: 18, height: 18, cursor: "pointer" } }),
