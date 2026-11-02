@@ -62,10 +62,7 @@
   "刪除唯讀頁？訪客將無法再閱讀或下載。": "Delete the read-only page? Guests will no longer be able to read or download it.",
   "刪除唯讀頁": "Delete read-only page",
   "關閉": "Close",
-  "🔗 分享中 · {0} 位訪客": "🔗 Sharing · guests: {0}",
-  "🔗 分享已結束": "🔗 Share ended",
   "把這個對話分享給別人一起討論": "Share this conversation for discussion",
-  "🔗 分享": "🔗 Share",
   "💬 討論不能附加檔案或圖片；請切換到 🤖 問 AI 再送出。": "💬 Discussion cannot include files or images. Switch to 🤖 Ask AI to send them.",
   "💬 討論：大家即時看到，AI 不會回覆。點一下切換成問 AI。": "💬 Discuss: everyone sees your message immediately; AI does not reply. Click to switch to Ask AI.",
   "🤖 問 AI：AI 會回覆，並讀到上次問 AI 之後的討論。點一下切換成討論。": "🤖 Ask AI: AI replies using discussion since the previous AI request. Click to switch to discussion.",
@@ -83,7 +80,7 @@
   "{0}（訪客）": "{0} (guest)",
   "關閉分享？所有訪客會立刻暫停，不能再發言或問 AI；分享和連結都會保留，重新開啟後恢復。": "Disable sharing? All guests will immediately be paused. Shares and links will be retained and resume when sharing is enabled again.",
   "對話分享": "Conversation sharing",
-  "允許把對話分享給沒有帳號的訪客（標題列的「🔗 分享」）。關閉時所有訪客暫停，分享不會被刪除。": "Allow guests without accounts to join through “🔗 Share” in the title bar. Disabling pauses guests without deleting shares.",
+  "允許把對話分享給沒有帳號的訪客（標題列的連結圖示）。關閉時所有訪客暫停，分享不會被刪除。": "Allow guests without accounts to join through “🔗 Share” in the title bar. Disabling pauses guests without deleting shares.",
   "允許分享使用「完全權限」？\n\n開放後，你可以在個別分享裡讓訪客問 AI 時使用完全權限：AI 不經你核准就能執行任何指令、修改或刪除檔案。每次啟用時還會再確認一次。": "Allow full access for shares?\n\nYou can then enable individual shares to let AI run commands and modify or delete files without your approval. Each activation requires confirmation.",
   "關閉後，正在使用完全權限的分享會改回唯讀。確定嗎？": "Shares currently using full access will return to read-only. Continue?",
   "分享可使用完全權限": "Allow full access for shares",
@@ -203,5 +200,7 @@
   "[附件]": "[Attachment]",
   "**🤖 {0} 問 AI** · {1}": "**🤖 {0} asks AI** · {1}",
   "分享已於 {0} 結束。": "This share ended at {0}.",
-  "載入中…": "Loading…"
+  "載入中…": "Loading…",
+  "邀請訪客": "Invite guests",
+  "分享中 · {0} 位訪客": "Sharing · guests: {0}"
 }
