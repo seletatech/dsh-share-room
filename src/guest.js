@@ -252,8 +252,8 @@
       } else if (row.item.kind === 'answer') {
         log.append(bubble('answer', 'AI', row.item.at, answerBody(row.item.text), { 'data-seq': row.item.seq }))
       } else if (row.item.kind === 'tool') {
-        const t = row.item
-        log.append(el('div', { class: 'tool muted small', 'data-seq': t.seq, text: `⚙ ${t.label} ${t.done ? (t.ok ? '✓' : '✗') : '…'}` }))
+        const tool = row.item
+        log.append(el('div', { class: 'tool muted small', 'data-seq': tool.seq, text: `⚙ ${t(tool.label)} ${tool.done ? (tool.ok ? '✓' : '✗') : '…'}` }))
       }
     }
     if (nearBottom) log.scrollTop = log.scrollHeight

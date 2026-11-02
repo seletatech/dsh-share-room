@@ -15,7 +15,7 @@ test('all languages have complete, matching placeholder dictionaries',()=>{
  }
 });
 test('reported owner/guest labels, errors, and names use explicit locale',()=>{
- assert.equal(translate('zh','分享這個對話'),'分享这个对话');
+ assert.equal(translate('zh','分享這個對話'),'分享此对话');
  assert.equal(translate('en','分享這個對話'),'Share this conversation');
  assert.equal(translate('zh-Hant','分享這個對話'),'分享這個對話');
  assert.equal(translate('zh','以「{0}」加入',['繁體姓名 <Alice>']),'以「繁體姓名 <Alice>」加入');
@@ -30,4 +30,13 @@ test('owner reacts to DSH preference; guest retains locale when removing invite 
  assert.match(client,/useSyncExternalStore\(callback => localeService\?\.subscribe/);
  assert.match(guest,/history.replaceState\(null, '', localized\(base\)\)/);
  assert.match(guest,/document.documentElement.lang = locale/);
+});
+
+test('download translates only generated labels and preserves conversation text', async()=>{
+ const {transcriptMarkdown} = await import('../lib/core.js');
+ const message='這是原始對話，不應轉換';
+ const result=transcriptMarkdown({locale:'en',title:'原始標題',items:[{kind:'ask',at:1,speaker:{name:'繁體姓名'},text:message}],discussion:[],endedAt:1000});
+ assert.match(result,/繁體姓名 asks AI/);
+ assert.ok(result.includes(message));
+ assert.match(result,/This share ended at/);
 });
